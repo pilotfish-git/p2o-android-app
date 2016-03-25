@@ -22,9 +22,11 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
     private Socket socket;
-    private String buttonId = "00:1B:DC:00:C0:06";
+    private String buttonId = "test";
     private TextView counterView;
+    private TextView messageView;
     private Integer counter;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         counterView = (TextView) findViewById(R.id.counter);
+        messageView = (TextView) findViewById(R.id.message);
 
         try {
             socket = IO.socket("http://p2o.pilotfish-demo-portal.eu:3001");
@@ -84,20 +87,24 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
 
-//                  String id;
-                    Integer cache;
                     try {
-                        JSONObject button = data.getJSONObject("button");
-//                      id = button.getString("id");
-                        cache = button.getInt("cache");
-                        counter = cache;
+                        JSONObject button;
+                        if(data.has("button")){
+                            button = data.getJSONObject("button");
+                            counter = button.getInt("count");
+                            message = "times pressed";
+                        } else {
+                            counter = 0;
+                            message = "waiting for button '" + buttonId + "' to register";
+                        }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
 
                     counterView.setText(counter.toString());
+                    messageView.setText(message);
 
-                    Log.v("button cache: ", cache.toString());
+                    Log.v("button count: ", counter.toString());
                 }
             });
         }
@@ -119,7 +126,9 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 
                     counter = counter + 1;
+                    message = "times pressed";
                     counterView.setText(counter.toString());
+                    messageView.setText(message);
                 }
             });
         }
