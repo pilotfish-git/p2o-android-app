@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private Emitter.Listener onConnectionResponse = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-
             JSONObject data = (JSONObject) args[0];
             String status;
             try {
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         JSONObject button;
-                        if(data.has("button")){
+                        if (data.has("button")) {
                             button = data.getJSONObject("button");
                             counter = button.getInt("count");
                             message = "times pressed";
