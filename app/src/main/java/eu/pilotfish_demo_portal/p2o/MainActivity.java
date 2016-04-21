@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         messageView = (TextView) findViewById(R.id.message);
 
         try {
-            socket = IO.socket("http://p2o.pilotfish-demo-portal.eu:3001");
+            socket = IO.socket("http://pilotfish-demo-portal.eu:3001");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

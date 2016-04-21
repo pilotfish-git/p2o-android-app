@@ -6,11 +6,11 @@ create your own.
 The Pilotfish P2O server uses a web socket connection to be able to notify clients realtime on 'button presses'.
 To setup the web socket connection, this project uses the [socket.io-client-java](https://github.com/socketio/socket.io-client-java) library.
 
-The Pilotfish websocket endpoint runs at `http://p2o.pilotfish-demo-portal.eu:3001`. You can connect to this endpoint with:
+The Pilotfish websocket endpoint runs at `http://pilotfish-demo-portal.eu:3001`. You can connect to this endpoint with:
 
 ```java
 try {
-    socket = IO.socket("http://p2o.pilotfish-demo-portal.eu:3001");
+    socket = IO.socket("http://pilotfish-demo-portal.eu:3001");
 } catch (URISyntaxException e) {
     throw new RuntimeException(e);
 }
@@ -105,3 +105,5 @@ private Emitter.Listener onButtonPress = new Emitter.Listener() {
     }
 };
 ```
+
+If you want to use a dummy button to test your app go to [http://pilotfish-demo-portal.eu/button](http://pilotfish-demo-portal.eu/button)
